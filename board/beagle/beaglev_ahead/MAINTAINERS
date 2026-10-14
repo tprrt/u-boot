@@ -1,0 +1,8 @@
+BeagleBoard BeagleV-Ahead
+M:	Thomas Perrot <thomas.perrot@bootlin.com>
+S:	Maintained
+F:	arch/riscv/dts/th1520-beaglev-ahead-u-boot.dtsi
+F:	board/beagle/beaglev_ahead/
+F:	configs/beaglev_ahead_defconfig
+F:	doc/board/beagle/beaglev_ahead.rst
+F:	include/configs/beaglev_ahead.h

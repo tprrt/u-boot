@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (C) 2025 Yao Zi <ziyao@disroot.org>
+ * Copyright (C) 2026 Thomas Perrot <thomas.perrot@bootlin.com>
+ */
+
+#include "th1520-u-boot.dtsi"
+#include "thead-th1520-binman.dtsi"
+
+&{/memory@0} {
+	bootph-pre-ram;
+};
+
+&clk {
+	bootph-some-ram;
+};
+
+&padctrl0_apsys {
+	bootph-some-ram;
+};
+
+&uart0_pins {
+	bootph-some-ram;
+
+	tx-pins {
+		bootph-some-ram;
+	};
+
+	rx-pins {
+		bootph-some-ram;
+	};
+};
