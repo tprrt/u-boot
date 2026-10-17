@@ -309,10 +309,16 @@ static int th1520_ddr_ctrl_init(void __iomem *ctrlreg, struct th1520_ddr_fw *fw)
 	if (ret)
 		return ret;
 
-	if (fw->ranknum == 2)
+	switch (fw->ranknum) {
+	case 1:
+		writel(0x01080020, ctrlreg + TH1520_CTRL_MSTR);
+		break;
+	case 2:
 		writel(0x03080020, ctrlreg + TH1520_CTRL_MSTR);
-	else
+		break;
+	default:
 		return -EINVAL;
+	}
 
 	writel(0x00003030, ctrlreg + TH1520_CTRL_MRCTRL0);
 	writel(0x0002d90f, ctrlreg + TH1520_CTRL_MRCTRL1);
@@ -479,7 +485,8 @@ static int th1520_ddr_ctrl_init(void __iomem *ctrlreg, struct th1520_ddr_fw *fw)
 
 	switch (fw->bitwidth) {
 	case 64:
-		writel(0x00040018, ctrlreg + TH1520_CTRL_ADDRMAP0);
+		writel(fw->ranknum == 2 ? 0x00040018 : 0x0004001f,
+		       ctrlreg + TH1520_CTRL_ADDRMAP0);
 		writel(0x00090909, ctrlreg + TH1520_CTRL_ADDRMAP1);
 		writel(0x00000000, ctrlreg + TH1520_CTRL_ADDRMAP2);
 		writel(0x01010101, ctrlreg + TH1520_CTRL_ADDRMAP3);
