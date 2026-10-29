@@ -324,7 +324,7 @@ static void label_boot_kaslrseed(void)
 
 /**
  * label_boot_fdtoverlay() - Loads fdt overlays specified in 'fdtoverlays'
- * or 'devicetree-overlay'
+ * or 'devicetree-overlay', or else in the 'fdtoverlays' environment variable
  *
  * @ctx: PXE context
  * @label: Label to process
@@ -339,6 +339,11 @@ static void label_boot_fdtoverlay(struct pxe_context *ctx,
 	ulong fdtoverlay_addr;
 	ulong fdt_addr;
 	int err;
+
+	if (!fdtoverlay)
+		fdtoverlay = env_get("fdtoverlays");
+	if (!fdtoverlay || !*fdtoverlay)
+		return;
 
 	/* Get the main fdt and map it */
 	fdt_addr = hextoul(env_get("fdt_addr_r"), NULL);
@@ -751,8 +756,7 @@ int label_boot(struct pxe_context *ctx, struct pxe_label *label)
 				label_boot_kaslrseed();
 
 #ifdef CONFIG_OF_LIBFDT_OVERLAY
-			if (label->fdtoverlays)
-				label_boot_fdtoverlay(ctx, label);
+			label_boot_fdtoverlay(ctx, label);
 #endif
 			label_boot_extension(ctx, label);
 

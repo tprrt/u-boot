@@ -207,7 +207,9 @@ Labels end when a command not recognized as a label command is reached, or EOF.
         address indicated in the ``fdtoverlay_addr_r`` environment
         variable, and then applied in the load order to the fdt blob
         stored at the address indicated in the ``fdt_addr_r``
-        environment variable.
+        environment variable. If the label has no ``fdtoverlays`` or
+        ``devicetree-overlay`` option, the space-separated paths in the
+        ``fdtoverlays`` environment variable are used instead.
 
 ``devicetree-overlay <path> [...]``
         if this label is chosen, use tftp to retrieve the DT
