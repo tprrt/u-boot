@@ -5,6 +5,9 @@
 ifdef CONFIG_UT_BOOTSTD
 obj-$(CONFIG_BOOTSTD) += bootdev.o bootstd_common.o bootflow.o bootmeth.o
 obj-$(CONFIG_FIT) += image.o
+ifdef CONFIG_OF_LIBFDT_OVERLAY
+obj-$(CONFIG_PXE_UTILS) += pxe.o
+endif
 
 ifdef CONFIG_VIDEO_SANDBOX_SDL
 obj-$(CONFIG_EXPO) += expo.o
